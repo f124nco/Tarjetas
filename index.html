@@ -2,7 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
     <title>Mis XV Años - Catalina</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -39,6 +42,16 @@
             background-attachment: fixed;
             color: #faaa60;
             overflow-x: hidden;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+            min-height: 100dvh;
+        }
+
+        body {
+            padding-bottom: calc(4rem + env(safe-area-inset-bottom));
         }
 
         /* Canvas de Mariposas */
@@ -109,6 +122,10 @@
 
         #welcomeScreen {
             background: rgba(251, 232, 236, 0.96);
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding-top: max(1.5rem, env(safe-area-inset-top));
+            padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
         }
 
         #welcomeScreen.is-hidden {
@@ -133,6 +150,33 @@
             transform: translateX(-50%);
             background: linear-gradient(135deg, #d18b3d 0%, #b8732d 100%);
         }
+
+        @supports not (height: 100dvh) {
+            #welcomeScreen {
+                min-height: -webkit-fill-available;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in-up {
+                animation: none;
+            }
+        }
+
+        .dress-code-section {
+            background:
+                radial-gradient(circle at 15% 15%, rgba(255, 231, 237, 0.8), transparent 32%),
+                radial-gradient(circle at 85% 80%, rgba(255, 218, 228, 0.7), transparent 35%),
+                rgba(255, 250, 251, 0.82);
+            border-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .dress-code-inner {
+            border: 1px solid rgba(168, 101, 35, 0.18);
+            background: rgba(255, 255, 255, 0.74);
+            box-shadow: 0 12px 26px rgba(168, 101, 35, 0.07);
+        }
+
     </style>
 </head>
 <body class="font-sans min-h-screen relative pb-16">
@@ -152,7 +196,7 @@
         </div>
     </section>
 
-    <audio id="backgroundMusic" preload="auto" loop>
+    <audio id="backgroundMusic" preload="auto" playsinline loop>
         <source src="./Taylor Swift ft. Chris Stapleton - I Bet You Think About Me.mp3" type="audio/mpeg">
     </audio>
     <button id="musicToggle" type="button" aria-label="Pausar música" title="Pausar música"
@@ -226,7 +270,7 @@
                 <i class="fa-solid fa-location-dot text-xl"></i>
             </div>
             <p class="font-script text-2xl text-accent-gold">Los espero en</p>
-            <h2 class="font-serif text-2xl sm:text-3xl text-accent-dark font-bold my-2">HE Eventos</h2>
+            <h2 class="font-serif text-2xl sm:text-3xl text-accent-dark font-bold my-2">Eh Eventos</h2>
             
             <div class="bg-white/80 rounded-2xl p-4 my-6 border border-rose-200 inline-block w-full max-w-md shadow-sm">
                 <p class="font-semibold text-accent-dark text-base sm:text-lg">Vidart 3865, Rawson</p>
@@ -249,7 +293,37 @@
 
         <div class="section-divider"></div>
 
-        <!-- ================= SECCIÓN 3: CONFIRMACIÓN DE ASISTENCIA ================= -->
+        <!-- ================= SECCION 3: DRESS CODE ================= -->
+        <section id="dressCode" class="dress-code-section glass-card rounded-3xl p-5 sm:p-8 text-center fade-in-up overflow-hidden">
+            <div class="mx-auto max-w-2xl">
+                <div class="mb-3 flex justify-center">
+                    <div class="flex h-16 w-16 items-center justify-center rounded-full bg-rose-100/80 text-accent-gold shadow-sm">
+                        <svg class="h-9 w-9" viewBox="0 0 64 64" aria-hidden="true">
+                            <path d="M32 12v11m0-11c0-4 7-4 7 0 0 3-3 5-7 5s-7-2-7-5c0-4 7-4 7 0Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                            <path d="m32 23-19 12h38L32 23Zm-15 12v6h30v-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <p class="font-script text-3xl text-accent-gold">C&oacute;mo vestir</p>
+                <h2 class="mt-1 font-serif text-3xl font-bold tracking-wide text-accent-dark sm:text-4xl">DRESS CODE</h2>
+
+                <div class="dress-code-inner relative mt-8 rounded-3xl px-4 pb-4 pt-6 sm:px-8">
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-gold">Vestimenta solicitada</p>
+                    <h3 class="font-sans text-2xl font-bold text-accent-dark sm:text-3xl">Estrictamente Formal</h3>
+                    <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-accent-dark sm:text-base">
+                        <i class="fa-solid fa-user-tie text-accent-dark" aria-hidden="true"></i>
+                        Los esperamos con su mejor gala para compartir<br class="hidden sm:block">
+                        este gran d&iacute;a juntos.
+                        <i class="fa-solid fa-person-dress text-accent-dark" aria-hidden="true"></i>
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- ================= SECCIÓN 4: CONFIRMACIÓN DE ASISTENCIA ================= -->
         <section class="glass-card rounded-3xl p-6 sm:p-8 text-center fade-in-up">
             <div class="w-12 h-12 rounded-full bg-rose-100/80 flex items-center justify-center mx-auto mb-4 text-accent-gold shadow-sm">
                 <i class="fa-solid fa-envelope-open-text text-xl"></i>
@@ -293,7 +367,7 @@
 
         <div class="section-divider"></div>
 
-        <!-- ================= SECCIÓN 4: EL REGALO ================= -->
+        <!-- ================= SECCIÓN 5: EL REGALO ================= -->
         <section class="glass-card rounded-3xl p-6 sm:p-8 text-center fade-in-up">
             <div class="w-12 h-12 rounded-full bg-rose-100/80 flex items-center justify-center mx-auto mb-4 text-accent-gold shadow-sm">
                 <i class="fa-solid fa-gift text-xl"></i>
@@ -325,7 +399,7 @@
 
         <div class="section-divider"></div>
 
-        <!-- ================= SECCIÓN 5: CARGAR FOTOS Y VIDEOS ================= -->
+        <!-- ================= SECCIÓN 6: CARGAR FOTOS Y VIDEOS ================= -->
         <section class="glass-card rounded-3xl p-6 sm:p-8 text-center fade-in-up">
             <div class="w-12 h-12 rounded-full bg-rose-100/80 flex items-center justify-center mx-auto mb-4 text-accent-gold">
                 <i class="fa-solid fa-camera-retro text-xl"></i>
@@ -363,44 +437,17 @@
         const musicToggle = document.getElementById('musicToggle');
         const musicIcon = document.getElementById('musicIcon');
         let selectedMemoryFiles = [];
-       const butterflyImages = [
-    "./mariposa-rosa1.png",
-    "./mariposa-dorada.png"
-].map((source) => {
-            const image = new Image();
-            image.onerror = () => {
-        console.warn(`No se pudo cargar la imagen: ${source}`);
-    };
-            image.src = source;
-            return image;
-        });
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Butterfly {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + 40;
-                this.size = Math.random() * 40 + 55;
-                this.image = butterflyImages[Math.floor(Math.random() * butterflyImages.length)];
+        let animationFrameId = 0;
+       const butterflyImages = ["./mariposa-rosa1.png", "./mariposa-dorada.png"];
                 this.speedY = Math.random() * 1.2 + 0.6;
                 this.speedX = (Math.random() - 0.5) * 1.2;
                 this.wingFlap = Math.random() * Math.PI;
                 this.wingSpeed = Math.random() * 0.15 + 0.12;
                 this.angle = (Math.random() - 0.5) * 0.3;
                 this.opacity = Math.random() * 0.4 + 0.6;
-            }
+          
 
-            update() {
+            update() 
                 this.y -= this.speedY;
                 this.x += Math.sin(this.y * 0.015) * 1.2 + this.speedX;
                 this.wingFlap += this.wingSpeed;
@@ -408,9 +455,8 @@
                 if (this.y < -50 || this.x < -50 || this.x > canvas.width + 50) {
                     this.reset();
                 }
-            }
 
-            draw() {
+            draw()
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.angle + Math.sin(this.y * 0.02) * 0.1);
@@ -423,9 +469,8 @@
                     ctx.drawImage(this.image, -width / 2, -height / 2, width, height);
                 }
                 ctx.restore();
-            }
-
-            drawWing(side, flapScale) {
+            
+            drawWing(side, flapScale)
                 ctx.save();
                 ctx.scale(side * Math.abs(flapScale), 1);
 
@@ -487,37 +532,47 @@
                 ctx.fill();
 
                 ctx.restore();
-            }
-        }
+        
 
         const butterflies = Array.from({ length: 12 }, () => new Butterfly());
 
         function animateButterflies() {
+            if (!ctx || document.hidden) {
+                animationFrameId = 0;
+                return;
+            }
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             butterflies.forEach(b => {
                 b.update();
                 b.draw();
             });
-            requestAnimationFrame(animateButterflies);
+            animationFrameId = requestAnimationFrame(animateButterflies);
         }
 
-        window.onload = function() {
+        document.addEventListener("visibilitychange", () => {
+            if (!document.hidden && !animationFrameId) {
+                animateButterflies();
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
             animateButterflies();
             startCountdown();
-        };
+        });
 
         openInvitation.addEventListener("click", async () => {
-            backgroundMusic.currentTime = 0.58;
+            backgroundMusic.currentTime = 0.59;
             backgroundMusic.volume = 0;
 
             try {
                 await backgroundMusic.play();
-                const fadeDuration = 1200;
+                const fadeDuration = 1800;
                 const fadeStart = performance.now();
 
                 const fadeInMusic = (currentTime) => {
                     const progress = Math.min((currentTime - fadeStart) / fadeDuration, 1);
-                    backgroundMusic.volume = progress * 0.12;
+                    backgroundMusic.volume = Math.min(progress * 0.12, 0.12);
 
                     if (progress < 1 && !backgroundMusic.paused) {
                         requestAnimationFrame(fadeInMusic);
